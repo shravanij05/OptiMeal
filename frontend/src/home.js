@@ -3,7 +3,7 @@ import {  useNavigate } from "react-router-dom";
 import "./style.css";
 import Sidebar from './Sidebar';
 import { Leaf } from "lucide-react";
-
+import VoiceInput from "./voiceInput";
 function Home() {
   const navigate = useNavigate();
 
@@ -37,9 +37,7 @@ function Home() {
               Start Planning →
             </button>
 
-            <button className="secondary">
-              Scan Ingredients
-            </button>
+            <VoiceInput />
           </div>
         </div>
 

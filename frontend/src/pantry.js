@@ -22,9 +22,34 @@ function Pantry() {
     }
   };
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
+
+    useEffect(() => {
+  const loadAllData = async () => {
+    let backendItems = [];
+
+    try {
+      const res = await API.get("/items");
+      backendItems = res.data.items || res.data;
+    } catch (err) {
+      console.log(err);
+    }
+
+    const localData = JSON.parse(localStorage.getItem("pantry")) || [];
+
+    const formattedLocal = localData.map((item, index) => ({
+      id: "local-" + index,
+      name: item.name,
+      quantity: item.quantity,
+      expiry_date: item.expiry,
+    }));
+
+    // ✅ MERGE BOTH
+    setItems([...backendItems, ...formattedLocal]);
+  };
+
+  loadAllData();
+}, []);
+  
 
   // ADD ITEM
   const handleAdd = async () => {
@@ -53,9 +78,30 @@ function Pantry() {
 
   // DELETE
   const handleDelete = async (id) => {
+  // 🟢 LOCAL STORAGE ITEM
+  if (id.toString().startsWith("local-")) {
+    const index = parseInt(id.split("-")[1]);
+
+    const existing = JSON.parse(localStorage.getItem("pantry")) || [];
+
+    existing.splice(index, 1);
+
+    localStorage.setItem("pantry", JSON.stringify(existing));
+
+    // refresh UI
+    window.location.reload();
+    return;
+  }
+
+  // 🔵 BACKEND ITEM
+  try {
     await API.delete(`/delete-item/${id}`);
     fetchItems();
-  };
+  } catch (err) {
+    console.log(err);
+    alert("Error deleting item");
+  }
+};
 
   // DAYS CALC
   const getDaysLeft = (date) => {

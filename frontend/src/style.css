@@ -329,6 +329,7 @@ body {
   border: 1px solid var(--border-light);
   position: relative;
   backdrop-filter: blur(20px);
+  z-index: 50; /* Added to keep it on top of following cards */
 }
 
 .tag {
@@ -652,4 +653,79 @@ select option { background: #ffffff; color: var(--text-main); }
   color: var(--orange);
   font-weight: 700;
   font-size: 16px;
+}
+.voice-card {
+  background: var(--surface-main);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+  width: 320px;
+}
+
+.voice-card h3 {
+  color: var(--text-main);
+  margin-bottom: 15px;
+}
+
+/* 🎤 MIC BUTTON */
+.mic-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+  width: 100%;
+}
+
+.mic-btn:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+/* 🎤 ACTIVE (LISTENING EFFECT) */
+.mic-btn.active {
+  background: var(--red);
+  box-shadow: 0 0 25px var(--red-glow);
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* RESULT BOX */
+.result-box {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border-light);
+}
+
+.result-box p {
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ADD BUTTON */
+.add-btn {
+  background: var(--green);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.add-btn:hover {
+  box-shadow: 0 0 15px var(--primary-glow);
 }
