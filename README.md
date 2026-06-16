@@ -246,3 +246,4 @@ Recommendations are generated based on:
 <div align="center">
   <p>Made with 💚 to fight food waste</p>
 </div>
+
